@@ -1,0 +1,40 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: MsEmployee
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: MsEmployee
+  template:
+    metadata:
+      labels: 
+        name: MsEmployee
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: MsEmployee
+          image: myreg/msemployee:1.0
+          imagePullPolicy: Always
+          env:
+            - name: AZURE_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: az-employee
+                  key: client-id
+            - name: AZURE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: az-employee
+                  key: client-secret
+            - name: AZURE_TENANT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: az-employee
+                  key: tenant-id
+          ports:
+            - name: http
+              containerPort: 5000
+           
