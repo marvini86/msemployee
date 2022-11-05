@@ -40,6 +40,10 @@ jobs:
         with:
           ref: ${{ github.HEAD_REF }}
 
+      - name: Retrieve entire repository history
+        run: |
+          git fetch --prune --unshallow
+
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v3
         with:
