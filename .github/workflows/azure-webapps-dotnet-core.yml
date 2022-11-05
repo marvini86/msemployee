@@ -84,7 +84,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          ./.sonar/scanner/dotnet-sonarscanner begin /o:"wzapps"  /k:"msemployee" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=Test/coverage.xml /d:sonar.branch.name=${github.REF_NAME} /d:sonar.scm.provider=git
+          ./.sonar/scanner/dotnet-sonarscanner begin /o:"wzapps"  /k:"msemployee" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=Test/coverage.xml /d:sonar.branch.name=${{ github.REF_NAME }} /d:sonar.scm.provider=git
           dotnet build --no-incremental
           dotnet-coverage collect 'dotnet test' -f xml  -o 'Test/coverage.xml'
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
