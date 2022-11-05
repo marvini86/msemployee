@@ -35,9 +35,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: 'Checkout repository on branch: ${{ github.REF }}'
+        uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ github.HEAD_REF }}
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v3
@@ -79,7 +80,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          ./.sonar/scanner/dotnet-sonarscanner begin /o:"wzapps"  /k:"msemployee" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=Test/coverage.xml
+          ./.sonar/scanner/dotnet-sonarscanner begin /o:"wzapps"  /k:"msemployee" 
+          /d:sonar.login="${{ secrets.SONAR_TOKEN }}" 
+          /d:sonar.host.url="https://sonarcloud.io" 
+          /d:sonar.cs.vscoveragexml.reportsPaths=Test/coverage.xml
+          /d:sonar.pullrequest.key=${{ github.event.number }}
+          /d:sonar.pullrequest.branch=${{ github.HEAD_REF }}
+          /d:sonar.pullrequest.base=${{ github.BASE_REF }}
+          /d:sonar.pullrequest.github.repository=${{ github.repository }}
+          /d:sonar.scm.provider=git
           dotnet build --no-incremental
           dotnet-coverage collect 'dotnet test' -f xml  -o 'Test/coverage.xml'
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
