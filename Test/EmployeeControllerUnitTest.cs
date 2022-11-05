@@ -25,7 +25,7 @@ namespace MsEmployee.Test
         }
 
 
-        [Fact]
+        /* [Fact]
         public async Task Test_List_Employee()
         {
 
@@ -66,7 +66,7 @@ namespace MsEmployee.Test
             var result = Assert.IsType<BadRequestObjectResult>(response.Result);
 
             Assert.Equal(400, result.StatusCode);
-        }
+        } */
 
 
     }
