@@ -46,7 +46,7 @@ jobs:
 
       - name: Retrieve entire repository history
         run: |
-          git fetch
+          git fetch --depth=1000000
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v3
