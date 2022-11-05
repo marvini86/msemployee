@@ -38,9 +38,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: 'Checkout repository on branch: ${{ github.REF }}'
+        uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ github.REF }}
+          fetch-depth: 0
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v3
