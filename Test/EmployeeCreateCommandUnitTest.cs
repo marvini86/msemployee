@@ -21,7 +21,7 @@ namespace MsEmployee.Test
             repository = new Mock<IEmployeeRepository>();
         }
 
-
+/* 
         [Fact]
         public async Task Test_Handler()
         {
@@ -50,7 +50,7 @@ namespace MsEmployee.Test
             var response = await handler.Handle(command.Object, CancellationToken.None);
 
             Assert.NotNull(response);
-        }
+        } */
 
     }
 }
