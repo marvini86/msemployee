@@ -24,7 +24,9 @@ env:
 
 on:
   pull_request:
+    types: [opened, edited, reopened, synchronize]
     branches: [ main, develop ]  
+    
   workflow_dispatch:
 
 permissions:
