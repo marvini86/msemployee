@@ -24,7 +24,7 @@ namespace MsEmployee.Test
             mediator = new Mock<IMediator>();
         }
 
-
+         /**
         [Fact]
         public async Task Test_List_Employee()
         {
@@ -68,6 +68,10 @@ namespace MsEmployee.Test
             Assert.Equal(400, result.StatusCode);
         }
 
+        **
+        /
 
+
+    
     }
 }
